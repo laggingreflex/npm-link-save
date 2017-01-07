@@ -1,0 +1,11 @@
+{
+  "name": "npm-link-save",
+  "version": "0.0.0",
+  "description": "npm-link --save",
+  "main": "index.js",
+  "bin": {
+    "npm-links": "index.js"
+  },
+  "files": [],
+  "repository": "laggingreflex/npm-link-save"
+}
