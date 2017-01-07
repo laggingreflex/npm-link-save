@@ -2,10 +2,13 @@
 
 const fs = require('fs');
 const { spawn } = require('child_process');
+const path = require('path')
+
+const cwd = process.cwd()
 
 let args = process.argv.slice(2);
 
-let cwdPkgJson = require('./package.json');
+let cwdPkgJson = require(path.join(cwd, 'package.json'));
 let dependencies = 'dependencies'
 args = args.filter(arg => {
   if (['--save-dev', '-D', '--saveDev'].indexOf(arg) > 0) {
@@ -20,7 +23,7 @@ let ctr = 0;
 
 
 args.forEach(pkg => {
-  spawn('npm', ['link', pkg], { stdio: 'inherit', shell: true }).once('exit', () => {
+  spawn('npm', ['link', pkg], { stdio: 'inherit', shell: true, cwd }).once('exit', () => {
     const linkedPkgJson = require(pkg + '/package.json');
     cwdPkgJson[dependencies][pkg] = '^' + linkedPkgJson.version;
     done();
@@ -30,7 +33,7 @@ args.forEach(pkg => {
 function done() {
   if (++ctr < args.length) return;
   cwdPkgJson[dependencies] = sort(cwdPkgJson[dependencies])
-  fs.writeFileSync('package.json', JSON.stringify(cwdPkgJson, null, 2));
+  fs.writeFileSync(path.join(cwd, 'package.json'), JSON.stringify(cwdPkgJson, null, 2));
 }
 
 function sort(obj) {
