@@ -23,7 +23,8 @@ let ctr = 0;
 
 
 args.forEach(pkg => {
-  spawn('npm', ['link', pkg], { stdio: 'inherit', shell: true, cwd }).once('exit', () => {
+  spawn('npm', ['link', pkg], { stdio: 'inherit', shell: true, cwd }).once('exit', code => {
+    if (code !== 0) return done();
     const linkedPkgJson = require(pkg + '/package.json');
     cwdPkgJson[dependencies][pkg] = '^' + linkedPkgJson.version;
     done();
