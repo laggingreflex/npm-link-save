@@ -7,7 +7,7 @@ You can also link **multiple** dependencies with this.
 ## Install
 
 ```
-npm i npm-link-save
+npm i -g npm-link-save
 ```
 
 ## Usage
