@@ -28,7 +28,7 @@ args.forEach(pkg => {
     const linkedPkgJson = require(pkg + '/package.json');
     const name = linkedPkgJson.name;
     const version = '^' + linkedPkgJson.version;
-    cwdPkgJson[dependencies][name] = version;
+    cwdPkgJson[checkExisting(name, version, dependencies, cwdPkgJson) || dependencies][name] = version;
     done();
   })
 })
@@ -44,4 +44,17 @@ function sort(obj) {
   const keys = Object.keys(obj).sort();
   keys.forEach(k => sorted[k] = obj[k]);
   return sorted;
+}
+
+function checkExisting(name, version, argDependencies, cwdPkgJson) {
+  const depsToCheck = ['dependencies', 'devDependencies'];
+  for (const deps of depsToCheck) {
+    if (!cwdPkgJson[deps]) continue;
+    const existing = cwdPkgJson[deps][name];
+    if (!existing) continue;
+    if (deps !== argDependencies) {
+      console.warn('WARNING: "' + name + '" exists in "' + deps + '" instead of "' + dependencies + '". Updated existing.');
+    }
+    return deps;
+  }
 }
