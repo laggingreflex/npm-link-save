@@ -26,7 +26,7 @@ args.forEach(pkg => {
   spawn('npm', ['link', pkg], { stdio: 'inherit', shell: true, cwd }).once('exit', code => {
     if (code !== 0) return done();
     const linkedPkgJson = require(pkg + '/package.json');
-    cwdPkgJson[dependencies][linkedPghJson.name] = '^' + linkedPkgJson.version;
+    cwdPkgJson[dependencies][linkedPkgJson.name] = '^' + linkedPkgJson.version;
     done();
   })
 })
