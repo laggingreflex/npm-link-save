@@ -4,7 +4,10 @@
   "description": "npm-link --save",
   "main": "index.js",
   "bin": {
-    "npm-links": "index.js"
+    "npm-link-save": "index.js",
+    "npm-links": "index.js",
+    "npm-link": "index.js",
+    "nls": "index.js"
   },
   "files": [],
   "repository": "laggingreflex/npm-link-save"
