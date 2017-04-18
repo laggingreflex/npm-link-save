@@ -25,7 +25,7 @@ let ctr = 0;
 args.forEach(pkg => {
   spawn('npm', ['link', pkg], { stdio: 'inherit', shell: true, cwd }).once('exit', code => {
     if (code !== 0) return done();
-    const linkedPkgJson = require(pkg + '/package.json');
+    const linkedPkgJson = JSON.parse(fs.readFileSync(path.join(cwd, 'node_modules', pkg, 'package.json')))
     const name = linkedPkgJson.name;
     const version = '^' + linkedPkgJson.version;
     cwdPkgJson[checkExisting(name, version, dependencies, cwdPkgJson) || dependencies][name] = version;
