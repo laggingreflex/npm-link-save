@@ -1,6 +1,6 @@
 {
   "name": "npm-link-save",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "npm link with --save",
   "main": "index.js",
   "bin": {
