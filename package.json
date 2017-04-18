@@ -5,7 +5,6 @@
   "main": "index.js",
   "bin": {
     "npm-link-save": "index.js",
-    "npm-links": "index.js",
     "npm-link": "index.js",
     "nls": "index.js"
   },
