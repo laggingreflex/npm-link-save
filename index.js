@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
+"use strict";
+
 const fs = require('fs');
-const { spawn } = require('child_process');
+const spawn = require('child_process').spawn;
 const path = require('path')
 
 const cwd = process.cwd()
@@ -23,7 +25,8 @@ let ctr = 0;
 
 
 args.forEach(pkg => {
-  spawn('npm', ['link', pkg], { stdio: 'inherit', shell: true, cwd }).once('exit', code => {
+  const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  spawn(npm, ['link', pkg], { stdio: 'inherit', shell: true, cwd }).once('exit', code => {
     if (code !== 0) return done();
     const linkedPkgJson = JSON.parse(fs.readFileSync(path.join(cwd, 'node_modules', pkg, 'package.json')))
     const name = linkedPkgJson.name;
