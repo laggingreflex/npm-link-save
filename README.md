@@ -1,3 +1,5 @@
+**DEPRECATED: Please use [npm-link-better](https://github.com/laggingreflex/npm-link-better)**
+
 # npm-link-save
 
 [![npm](https://img.shields.io/npm/v/npm-link-save.svg?style=flat-square)](https://www.npmjs.com/package/npm-link-save)
